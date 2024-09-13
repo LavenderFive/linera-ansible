@@ -1,0 +1,3 @@
+---
+- name: launch linera
+  command: "docker compose up -d"

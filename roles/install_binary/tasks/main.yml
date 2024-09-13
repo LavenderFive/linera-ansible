@@ -1,0 +1,11 @@
+---
+- name: Clone node repo
+  git:
+    repo: "{{ repo }}"
+    dest: "{{ user_dir }}/daemons/{{ network }}"
+    update: true
+    force: true
+    recursive: false
+
+- name: Handle network specific installation
+  include_tasks: "networks/{{ network }}.yml"

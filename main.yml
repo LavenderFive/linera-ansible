@@ -4,6 +4,7 @@
   gather_facts: false
   roles:
     - install_rust
-    - install_snarkos
+    - install_docker
+    - install_binary
     - node_configure
     - node_launch

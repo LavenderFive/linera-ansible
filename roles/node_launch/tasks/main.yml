@@ -1,17 +1,3 @@
 ---
-- name: copy service file
-  become: true
-  template:
-    src: aleo.service.j2
-    dest: /etc/systemd/system/aleo.service
-    owner: root
-    group: root
-    mode: "0644"
-
-- name: start service
-  become: true
-  systemd:
-    name: aleo.service
-    state: restarted
-    daemon_reload: true
-    enabled: true
+- name: Handle network specific installation
+  include_tasks: "networks/{{ network }}.yml"

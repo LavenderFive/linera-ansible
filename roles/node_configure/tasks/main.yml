@@ -1,12 +1,9 @@
 ---
 - name: make working directory
   file:
-    path: "{{ working_dir }}"
+    path: ".{{ network }}"
     state: directory
     mode: "0755"
 
-- name: copy aleo.sh script
-  template:
-    src: aleo.sh.j2
-    dest: "{{ working_dir }}/aleo.sh"
-    mode: 0755
+- name: Handle network specific installation
+  include_tasks: "networks/{{ network }}.yml"

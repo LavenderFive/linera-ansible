@@ -1,0 +1,21 @@
+---
+- name: Install node
+  command: "cargo install --locked --path linera-service"
+  args:
+    chdir: "{{ user_dir }}/daemons/{{ network }}"
+  environment:
+    PATH: "{{ path }}"
+    GOPATH: "{{ user_dir }}/go"
+
+- name: Copy docker compose file
+  copy:
+    src: "{{ user_dir }}/daemons/{{ network }}/docker/docker-compose.yml"
+    dest: "{{ user_dir }}/.linera/docker-compose.yml"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0644
+
+- name: Build Docker container
+  command: "docker build -f docker/Dockerfile . -t linera"
+  args:
+    chdir: "{{ user_dir }}/daemons/linera"

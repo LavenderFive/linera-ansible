@@ -1,0 +1,18 @@
+server_config_path = "server.json"
+host = "{{ dns }}"
+port = 19100
+metrics_host = "proxy"
+metrics_port = 21100
+internal_host = "proxy"
+internal_port = 20100
+[external_protocol]
+Grpc = "ClearText"
+[internal_protocol]
+Grpc = "ClearText"
+
+[[shards]]
+host = "shard"
+port = 19100
+metrics_host = "shard"
+metrics_port = 21100
+

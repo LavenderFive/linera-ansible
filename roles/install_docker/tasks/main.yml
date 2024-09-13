@@ -1,0 +1,42 @@
+# https://docs.ansible.com/ansible/latest/collections/community/docker/
+---
+- name: check if docker is installed
+  become: true
+  command: dpkg -l | grep docker
+  register: docker_installed
+  ignore_errors: true
+
+- name: install docker
+  when: docker_installed.rc != 0
+  block:
+    - name: add apt-key
+      become: true
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+
+    - name: add docker repo
+      become: true
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+
+    - name: install docker 
+      become: true
+      apt:
+        name: 
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose-plugin
+          - python3-docker
+        update_cache: yes
+
+    - name: add user permissions
+      become: true
+      shell: "gpasswd -a {{ ansible_user }} docker"
+
+    - name: ensure docker is started
+      become: true
+      service:
+        name: docker
+        state: started
+        enabled: yes
