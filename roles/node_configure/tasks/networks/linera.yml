@@ -6,3 +6,11 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: 0644
+
+- name: copy docker compose file
+  copy:
+    src: "{{ user_dir }}/daemons/{{ network }}/docker/docker-compose.yml"
+    dest: "{{ user_dir }}/.linera/docker-compose.yml"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0644
