@@ -6,6 +6,7 @@
     update: true
     force: true
     recursive: false
+    version: '{{ node_version }}'
 
 - name: Handle network specific installation
   include_tasks: "networks/{{ network }}.yml"

@@ -1,5 +1,5 @@
 ---
-- name: Aleo Deployment
+- name: Linera Deployment
   hosts: "{{ target }}"
   gather_facts: false
   roles:
