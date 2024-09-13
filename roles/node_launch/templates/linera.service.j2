@@ -1,0 +1,25 @@
+[Unit]
+Description=SnarkOS Node
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User={{ ansible_user }}
+WorkingDirectory={{ working_dir }}
+Environment="PATH={{ path }}"
+ExecStart=/bin/bash {{ working_dir }}/aleo.sh
+ExecStop=/bin/kill -s INT ${MAINPID}
+Restart=on-failure
+RestartSec=5
+# Systemd scheduling
+CPUSchedulingPolicy=fifo
+CPUSchedulingPriority=20
+IOSchedulingClass=best-effort
+IOSchedulingPriority=0
+# Open files
+LimitNOFILE=infinity
+LimitMEMLOCK=infinity
+Nice=-10
+
+[Install]
+WantedBy=multi-user.target

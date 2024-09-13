@@ -1,0 +1,9 @@
+---
+- name: Aleo Deployment
+  hosts: "{{ target }}"
+  gather_facts: false
+  roles:
+    - install_rust
+    - install_snarkos
+    - node_configure
+    - node_launch

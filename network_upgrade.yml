@@ -1,0 +1,14 @@
+---
+- name: Aleo Network Upgrade
+  hosts: "{{ target }}"
+  gather_facts: false
+  post_tasks:
+    - name: Restart service
+      become: true
+      systemd:
+        name: aleo.service
+        state: restarted
+        daemon_reload: true
+        enabled: true
+  roles:
+    - install_snarkos
