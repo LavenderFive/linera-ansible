@@ -1,6 +1,6 @@
 ---
 - name: create validator config.toml file
-  templates:
+  template:
     src: "linera.toml.j2"
     dest: "{{ user_dir }}/.{{ network }}/validator.toml"
     owner: "{{ ansible_user }}"
@@ -9,8 +9,17 @@
 
 - name: copy docker compose file
   copy:
+    remote_src: true
     src: "{{ user_dir }}/daemons/{{ network }}/docker/docker-compose.yml"
     dest: "{{ user_dir }}/.linera/docker-compose.yml"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0644
+
+- name: download genesis.json
+  get_url:
+    url: "{{ genesis_url }}"
+    dest: "{{ user_dir }}/.{{ network }}/genesis.json"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: 0644

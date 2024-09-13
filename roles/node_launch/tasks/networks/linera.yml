@@ -1,3 +1,5 @@
 ---
 - name: launch linera
   command: "docker compose up -d"
+  args:
+    chdir: "{{ user_dir }}/.{{ network }}"
